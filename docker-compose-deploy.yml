@@ -1,0 +1,24 @@
+version: "3"
+services:
+  wantedlab_app:
+    container_name: wantedlab_app
+    build:
+      context: .
+      dockerfile: ./Dockerfile-deploy
+    restart: always
+    command: gunicorn app:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:80
+    volumes:
+      - .:/usr/src/app/
+    environment:
+      - TZ="Asia/Seoul"
+
+  nginx:
+    container_name: wantedlab_nginx
+    image: nginx:latest # nginx 서비스에서 사용할 도커 이미지
+    ports:
+      - '80:80'
+    environment:
+      - TZ="Asia/Seoul"
+    volumes:
+      - .:/app
+      - ./config/nginx:/etc/nginx/conf.d
