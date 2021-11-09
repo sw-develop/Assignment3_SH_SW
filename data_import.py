@@ -1,6 +1,6 @@
 import csv
-from models import *
-from database import SessionLocal
+from models     import *
+from database   import SessionLocal
 
 db = SessionLocal()
 

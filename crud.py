@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from models import *
-from schemas import *
+from models         import *
+from schemas        import *
 
 
 def get_company(db: Session, company_name: str, language_key: str):
