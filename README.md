@@ -7,8 +7,8 @@
 ## Members
 |이름   |github                   |담당 기능|
 |-------|-------------------------|------------------|
-|최신혁 |[shchoi94](https://github.com/shchoi94)     |모델링, 회사 검색, 자동완성|
-|박세원 |[sw-develop](https://github.com/sw-develop)   |회사 추가 기능, 배포|
+|최신혁 |[shchoi94](https://github.com/shchoi94)     |모델링, 회사 검색 api, 자동완성 api|
+|박세원 |[sw-develop](https://github.com/sw-develop)   |회사 추가 api, 배포|
 
 
 
@@ -60,36 +60,18 @@
 - GET /search/   
 - GET /companies/{company_name}/   
 - POST /companies/
-
-## 구현 기능
-### 회사 검색 기능
--
--
-### 회사 상세 정보 조회 기능
-- "/companies/회사이름" 으로 회사이름을 입력합니다.
-- 헤더값(x-wanted-language)으로 'ko' or 'en' or 'ja' 등을 입력합니다.
-- 위의 입력정보로 회사이름과 해당언어의 태그를 조회합니다.
-- 검색된 회사가 없는 경우는 404에러를 반환합니다.
-### 회사 추가 기능
--
--
-
-
+  - 회사를 추가할 때, ko, en, ja 말고도 타 언어의 회사이름과 태그를 추가할 수 있습니다.
+  
+    
 ## 배포정보
 |구분   |  정보          |비고|
 |-------|----------------|----|
 |배포플랫폼 | AWS EC2    |    |
-|API 주소 | http://18.188.189.173:8021/            |    |
+|API 주소 | http://ec2-3-37-125-5.ap-northeast-2.compute.amazonaws.com/            |    |
 
 
 ## API TEST 방법
-1. 우측 링크를 클릭해서 postman으로 들어갑니다. [링크](https://www.postman.com/wecode-21-1st-kaka0/workspace/assignment3/overview)
-
-2. 정의된 SERVER_URL이 올바른지 확인 합니다. (18.188.189.173:8021)
-
-
-3. 만약 Send버튼이 비활성화가 될 시 fork를 이용해서 해당 postman project를 복사해서 시도하길 바랍니다.
-![image](https://user-images.githubusercontent.com/8219812/139912241-d6cb5831-23e8-4cbb-a747-f52c42601098.png)
+- swagger docs -> [링크](http://ec2-3-37-125-5.ap-northeast-2.compute.amazonaws.com/docs)
 
 
 ## 설치 및 실행 방법
@@ -97,77 +79,34 @@
 
 1. 해당프로젝트를 clone 하고, 프로젝트 폴더로 들어간다.
     ```bash
-    git clone https://github.com/Wanted-Preonboarding-Backend-1st-G5/Assignment3-TW-JW-YY
-    cd Assignment3-TW-JW-YY
+    $ git clone https://github.com/Wanted-Preonboarding-Backend-1st-G5/Assignment3_SH_SW
+    $ cd Assignment3_SH_SW
+    
     ```
 2. 가상 환경을 만들고 프로젝트에 사용한 python package를 받는다.
     ```bash
-    conda create --name Assignment3-TW-JW-YY python=3.8
-    conda actvate Assignment3-TW-JW-YY
-    pip install -r requirements.txt
+    $ python3 -m venv .venv
+    $ source .venv/bin/activate
+    $ pip install -r requirements.txt
     ```
 
-3. docker환경 설정 파일을 만든다.
-      ```text
-      # .dockerenv.dev_local
-      
-      DJANGO_SECRET_KEY='django시크릿키'
+3. 서버를 실행시켜 내장db, sqlite를 생성한다.
+      ```bash
+      $ uvicorn app:app --reload
       ```
 
-4. docker-compose를 통해서 db와 서버를 실행시킨다.
+4. 파이썬 쉘을 켜서 제공된 데이터를 import 한다.
     ```bash
-    docker-compose -f docker-compose-dev-local.yml up
+    $ python3
+    >>> from data_import import *
+    >>> import_data('wanted_temp_data.csv')
+    >>> exit()
     ```
     
-5. 만약 백그라운드에서 실행하고 싶을 시 `-d` 옵션을 추가한다.
+5. 제공된 테스트 코드를 실행한다.
     ```bash
-    docker-compose -f docker-compose-dev-local.yml up -d
+    $ pytest ./test_app.py
     ```
-
-###  배포용 
-1. 해당프로젝트를 clone 하고, 프로젝트 폴더로 들어간다.
-    ```bash
-    git clone https://github.com/Wanted-Preonboarding-Backend-1st-G5/Assignment3_SH_SW.git
-    cd Assignment3-SH-SW
-    ```
-
-2. docker환경 설정 파일을 만든다.
-  
-3. 백엔드 서버용 .dockerenv.deploy_backend 파일을 만들어서 안에 다음과 같은 내용을 입력한다. manage.py와 같은 폴더에 생성한다.
-      
-    ```text
-    # ..dockerenv.deploy_backend
-    DJANGO_SECRET_KEY='django시크릿키'
-    ```
-   
-4. DB 용 .dockerenv.deploy_db 파일을 만들어서 안에 다음과 같은 내용을 입력한다. manage.py와 같은 폴더에 생성한다.
-  
-    ```text
-    # .dockerenv.deploy_db
-    ```
-
-5. docker-compose를 통해서 db와 서버를 실행시킨다.
-    
-    ```bash
-    docker-compose -f docker-compose-deploy.yml up
-    ```
-    
-6. 만약 백그라운드에서 실행하고 싶을 시 `-d` 옵션을 추가한다.
-  
-    ```bash
-    docker-compose -f docker-compose-deploy.yml up -d
-    ```
-
-## 폴더 구조
-
-```bash
-
-```
-
-## TIL정리 (Blog)
-- 김태우 : 
-- 고유영 :
-- 박지원 : 
 
 # Reference
 이 프로젝트는 원티드x위코드 백엔드 프리온보딩 과제 일환으로 원티드랩에서 출제한 과제를 기반으로 만들었습니다.
