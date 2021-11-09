@@ -1,7 +1,8 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy     import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 
-from database import Base
+from database       import Base
+from datetime       import datetime
 
 
 class User(Base):
@@ -24,3 +25,64 @@ class Item(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="items")
+
+
+class Language(Base):
+    __tablename__ = "language"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, nullable=False)
+
+    created_at = Column(datetime, default=datetime.now())
+    updated_at = Column(datetime, default=datetime.now(), onupdate=datetime.now())
+
+    tags = relationship("Tag", back_populates="language")
+    company_names = relationship("CompanyName", back_populates="language")
+
+
+class Company(Base):
+    __tablename__ = "company"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    created_at = Column(datetime, default=datetime.now())
+    updated_at = Column(datetime, default=datetime.now(), onupdate=datetime.now())
+
+    tags = relationship("Tag", back_populates="company")
+    company_names = relationship("CompanyName", back_populates="company")
+
+
+class Tag(Base):
+    __tablename__ = "tag"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    company = Column(Integer,  ForeignKey("company.id"))
+    language = Column(Integer, ForeignKey("language.id"))
+
+    company = relationship("Company", back_populates="tags")
+    language = relationship("Language", back_populates="tags")
+
+    name = Column(String, nullable=False)
+
+    created_at = Column(datetime, default=datetime.now())
+    updated_at = Column(datetime, default=datetime.now(), onupdate=datetime.now())
+
+
+class CompanyName(Base):
+    __tablename__ = "company_name"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    company = Column(Integer,  ForeignKey("company.id"))
+    language = Column(Integer, ForeignKey("language.id"))
+
+    company = relationship("Company", back_populates="company_names")
+    language = relationship("Language", back_populates="company_names")
+
+    name = Column(String, unique=True, nullable=False)
+
+    __table_agrs__ = (UniqueConstraint('language', 'name', name='_language_companyname_uc'))
+
+    created_at = Column(datetime, default=datetime.now())
+    updated_at = Column(datetime, default=datetime.now(), onupdate=datetime.now())
