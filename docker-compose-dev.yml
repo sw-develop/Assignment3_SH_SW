@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   wantedlab_app:
     container_name: wantedlab_app
