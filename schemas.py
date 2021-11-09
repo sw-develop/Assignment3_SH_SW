@@ -12,6 +12,13 @@ class CreateCompany(BaseModel):
     company_name: dict
     tags: List[dict] = []
 
+class CompanyNameSchema(BaseModel):
+    company_name: str
+
+class AutoCompleteCompany(BaseModel):
+    company_name: str
+    description: Optional[str] = None
+
 
 class CreateCompanyResponse(BaseModel):
     company_name: str

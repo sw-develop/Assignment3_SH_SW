@@ -1,7 +1,7 @@
 import pytest
 import json
 
-from app import app
+import app
 
 
 @pytest.fixture
@@ -15,8 +15,8 @@ def test_company_name_autocomplete(api):
     회사명의 일부만 들어가도 검색이 되어야 합니다.
     header의 x-wanted-language 언어값에 따라 해당 언어로 출력되어야 합니다.
     """
-    resp = api.get("/search?query=링크", headers=[("x-wanted-language", "ko")])
-    searched_companies = json.loads(resp.data.decode("utf-8"))
+    resp = api.get("/search?query=링크", headers={"x-wanted-language": "ko"})
+    searched_companies = json.loads(resp.content)
 
     assert resp.status_code == 200
     assert searched_companies == [
@@ -31,10 +31,10 @@ def test_company_search(api):
     header의 x-wanted-language 언어값에 따라 해당 언어로 출력되어야 합니다.
     """
     resp = api.get(
-        "/companies/Wantedlab", headers=[("x-wanted-language", "ko")]
+        "/companies/Wantedlab", headers={"x-wanted-language": "ko"}
     )
 
-    company = json.loads(resp.data.decode("utf-8"))
+    company = json.loads(resp.content)
     assert resp.status_code == 200
     assert company == {
         "company_name": "원티드랩",
@@ -47,7 +47,7 @@ def test_company_search(api):
 
     # 검색된 회사가 없는경우 404를 리턴합니다.
     resp = api.get(
-        "/companies/없는회사", headers=[("x-wanted-language", "ko")]
+        "/companies/없는회사", headers={"x-wanted-language": "ko"}
     )
 
     assert resp.status_code == 404
@@ -91,10 +91,10 @@ def test_new_company(api):
                 }
             ]
         },
-        headers=[("x-wanted-language", "tw")],
+        headers={"x-wanted-language": "tw"},
     )
 
-    company = json.loads(resp.data.decode("utf-8"))
+    company = json.loads(resp.content)
     assert company == {
         "company_name": "LINE FRESH",
         "tags": [
