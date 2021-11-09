@@ -57,8 +57,8 @@ class Tag(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    company = Column(Integer, ForeignKey("company.id"))
-    language = Column(Integer, ForeignKey("language.id"))
+    company_id = Column(Integer, ForeignKey("company.id"))
+    language_id = Column(Integer, ForeignKey("language.id"))
 
     company = relationship("Company", back_populates="tags")
     language = relationship("Language", back_populates="tags")
@@ -74,8 +74,8 @@ class CompanyName(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    company = Column(Integer, ForeignKey("company.id"))
-    language = Column(Integer, ForeignKey("language.id"))
+    company_id = Column(Integer, ForeignKey("company.id"))
+    language_id = Column(Integer, ForeignKey("language.id"))
 
     company = relationship("Company", back_populates="company_names")
     language = relationship("Language", back_populates="company_names")
