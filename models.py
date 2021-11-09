@@ -80,9 +80,9 @@ class CompanyName(Base):
     company = relationship("Company", back_populates="company_names")
     language = relationship("Language", back_populates="company_names")
 
-    name = Column(String, unique=True, nullable=False)
+    name = Column(String, nullable=False)
 
-    __table_agrs__ = (UniqueConstraint('language', 'name', name='_language_companyname_uc'))
+    __table_args__ = (UniqueConstraint('language_id', 'name', name='_language_companyname_uc'),)
 
     created_at = Column(DateTime, default=datetime.now())
     updated_at = Column(DateTime, default=datetime.now(), onupdate=datetime.now())
