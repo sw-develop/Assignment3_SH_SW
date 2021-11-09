@@ -11,6 +11,15 @@ class SearchCompany(BaseModel):
 class CreateCompany(BaseModel):
     company_name: dict
     tags: List[dict] = []
+
+
+class CreateCompanyResponse(BaseModel):
+    company_name: str
+    tags: List[str] = []
+
+    class Config:
+        orm_mode = True
+
 # class AutoCompleteCompany(BaseModel):
 #     company_name: str
 #     description: Optional[str] = None
