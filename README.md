@@ -1,45 +1,72 @@
-# Assignment3-SH-SW
+# 원티드x위코드 백엔드 프리온보딩 프로젝트 #3
 
-원티드x위코드 백엔드 프리온보딩 과제3
-- 과제 출제 기업 정보
+- 관련 기업 정보
   - 기업명 : 원티드랩
 
-## Members
+## 역할
 |이름   |github                   |담당 기능|
 |-------|-------------------------|------------------|
-|최신혁 |[shchoi94](https://github.com/shchoi94)     |모델링, 회사 검색 api, 자동완성 api|
-|박세원 |[sw-develop](https://github.com/sw-develop)   |회사 추가 api, 배포|
+|박세원 |[sw-develop](https://github.com/sw-develop)   |회사 추가 API 구현, Docker/Nginx/Uvicorn을 사용해 AWS EC2로 배포|
 
 
+## 구현 조건 내용
+<details>
+<summary><b>구현 조건 내용 보기</b></summary>
+<div markdown="1">
+  
+### **[필수 포함 사항]**
 
-## 과제 내용
-> 다음과 같은 내용을 포함하는 테이블을 설계하고 다음과 같은 기능을 제공하는 REST API 서버를 개발해주세요.
+- READ.ME 작성
+    - 프로젝트 빌드, 자세한 실행 방법 명시
+    - 구현 방법과 이유에 대한 간략한 설명
+    - 완료된 시스템이 배포된 서버의 주소
+    - Swagger나 Postman을 통한 API 테스트할때 필요한 상세 방법
+    - 해당 과제를 진행하면서 회고 내용 블로그 포스팅
+- Swagger나 Postman을 이용하여 API 테스트 가능하도록 구현
 
-- 원티드 선호 기술스택
-  - Python flask 또는 fastapi
+## [과제  안내]
 
-### [데이터]
+- 원티드 선호 기술스택: Python flask 또는 fastapi
+
+<aside>
+📝 다음과 같은 내용을 포함하는 테이블을 설계하고 다음과 같은 기능을 제공하는 REST API 서버를 개발해주세요.
+
+</aside>
+
+✔️ **데이터**
+
+---
+
 - 회사 정보
     - 회사 이름 (다국어 지원 가능)
 - 회사 정보 예제
     - 회사 이름 (원티드랩 / Wantedlab)
 - 데이터 셋은 원티드에서 제공
+    
+    [wanted_temp_data.csv](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/81f13ae2-fabc-4fad-a754-9b2d684f41a8/wanted_temp_data.csv)
+    
 - 데이터셋 예제
-  - 원티드랩 회사는 한국어, 영어 회사명을 가지고 있습니다. (모든 회사가 모든 언어의 회사명을 가지고 있지는 않습니다.)
+    - 원티드랩 회사는 한국어, 영어 회사명을 가지고 있습니다. (모든 회사가 모든 언어의 회사명을 가지고 있지는 않습니다.)
 
-|컬럼명 | company_name_ko   | company_name_en | company_name_ja |
-|-------|-------------------|-----------------|-----------------|
-|내용   | 원티드랩          | wantedlab       |                 |
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bc509867-6ea5-428e-9300-0eec22da3fb5/Untitled.png)
 
+✔️ **REST API 기능**
 
-### [REST API 기능]
+---
+
 - 회사명 자동완성
     - 회사명의 일부만 들어가도 검색이 되어야 합니다.
 - 회사 이름으로 회사 검색
 - 새로운 회사 추가
 
-### [개발 조건]
+**✔️ 개발 조건**
+
+---
+
 - 제공되는 test case를 통과할 수 있도록 개발해야 합니다.
+    
+    [test_app.py](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0d2517b3-b80b-4a1b-82c4-9bc6f2a0d5ae/test_app.py)
+    
 - ORM 사용해야 합니다.
 - 결과는 JSON 형식이어야 합니다.
 - database는 RDB를 사용해야 합니다.
@@ -47,6 +74,9 @@
 - 필요한 조건이 있다면 추가하셔도 좋습니다.
 - Docker로 개발하면 가산점이 있습니다.
 
+  
+</div>
+</details>
 
 ## 사용 기술 및 tools
 > - Back-End :  FastAPI, sqlite, swagger, pydantic
